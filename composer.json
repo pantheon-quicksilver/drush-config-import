@@ -1,11 +1,22 @@
 {
-  "name": "pantheon-quicksilver/quicksilver-template",
-  "description": "A template for creating new Quicksilver scripts installed via Composer.",
-  "homepage": "https://github.com/pantheon-quicksilver/quicksilver-template",
+  "name": "pantheon-quicksilver/drush-config-import",
+  "description": "Importing drupal configuration changes from .yml files with drush.",
+  "homepage": "https://github.com/pantheon-quicksilver/drush-config-import",
   "authors": [],
   "type": "quicksilver-script",
   "require": {
     "composer/installers": "~1.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "extra": {
+    "pantheon-quicksilver": {
+      "drush-config-import": [
+        {
+          "wf_type": "deploy",
+          "stage": "after",
+          "weight": 1
+        }
+      ]
+    }
+  }
 }
