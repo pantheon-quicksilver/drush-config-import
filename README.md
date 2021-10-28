@@ -1,6 +1,8 @@
-# Quicksilver Template
+# Configuration import #
 
-This is template for new Quicksilver projects to utilize so that Quicksilver scripts can be installed through Composer.
+This example will show you how to integrate Drush commands into your Quicksilver operations, with the practical outcome of importing configuration changes from `.yml` files . You can use the method shown here to run any Drush command you like.
+
+Note that with the current `webphp` type operations, your timeout is limited to 120 seconds, so long-running operations should be avoided for now.
 
 ## Requirements
 
@@ -30,23 +32,28 @@ In order for this to work, you should have the following in your composer.json f
 }
 ```
 
-The project can be included by using the command, where `{quicksilver-project}` represents the name of the Quicksilver script:
+The project can be included by using the command:
 
-`composer require pantheon-quicksilver/{quicksilver-project}:^1`
+`composer require pantheon-quicksilver/drush-config-import:^1`
 
 If you are using one of the example PR workflow projects ([Drupal 8](https://www.github.com/pantheon-systems/example-drops-8-composer), [Drupal 9](https://www.github.com/pantheon-systems/drupal-project), [WordPress](https://www.github.com/pantheon-systems/example-wordpress-composer)) as a starting point for your site, these entries should already be present in your `composer.json`.
 
-### Example `pantheon.yml`
+Note that automating this step may not be appropriate for all sites. Sites on which configuration is edited in the live environment may not want to automatically switch to configuration stored in files. For more information, see https://www.drupal.org/documentation/administer/config
 
-Here's an example of what your `pantheon.yml` would look like if this were the only Quicksilver operation you wanted to use.
+Optionally, you may want to use the `terminus workflow:watch` command to get immediate debugging feedback.
+
+
+### Example `pantheon.yml` ###
+
+Here's an example of what your `pantheon.yml` would look like if this were the only Quicksilver operation you wanted to use:
 
 ```yaml
 api_version: 1
 
 workflows:
-  sync_code:
+  deploy:
     after:
       - type: webphp
-        description: Run Quicksilver script
-        script: private/scripts/quicksilver/pantheon-quicksilver/quicksilver-template.php
+        description: Import configuration from .yml files
+        script: private/scripts/quicksilver/drush-config-import/drush-config-import.php
 ```
